@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Automate employee onboarding with Azure Active Directory, Logic Apps, and more as part of the AZ-104 exam preparation.">
+    <title>Microsoft Azure: Onboard Automator</title>
+
+    <!-- CSS Styles -->
+    <style>
+        /* Define custom CSS variables for colors */
+        :root {
+            --bg-color: #FFFFFF;  /* White background */
+            --second-bg-color: #EAECEE;  /* Light silver for secondary background elements */
+            --text-color: #000000;  /* Black text for clear contrast */
+            --main-color: #FFA500;;  /* Orange */
+            --btn-bg-color: #000000;  /* Black background for buttons */
+        }
+
+        /* Apply styles using the variables */
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            font-size: 1.9rem; /* Adjusted base font size */
+        }
+
+        /* Header styles */
+        .header {
+            background-color: var(--second-bg-color);
+            color: var(--text-color);
+            padding: 10px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .header .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap; /* Ensures responsiveness */
+            margin-top: 10px; /* Add some spacing above navbar */
+        }
+
+        .navbar a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 8px 16px;
+            transition: background-color 0.3s; /* Smooth hover effect */
+        }
+
+        .navbar a:hover {
+            background-color: var(--main-color);
+            border-radius: 5px;
+        }
+
+        /* Mobile Menu Icon */
+        #menu-icon {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
+            margin: 10px; /* Spacing for the icon */
+        }
+
+        /* Main content styles */
+        h1, h2, h3 {
+            color: var(--main-color); /* Changed subheading color */
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        /* Style for the Go Back link */
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: var(--main-color);
+            color: var(--bg-color);
+            border-radius: 5px;
+        }
+
+        .back-link:hover {
+            background-color: #000000;
+        }
+
+        /* Experience Container - Ensures single column on mobile */
+        .experience-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            body {
+                font-size: 1.6rem; /* Scale down font for readability on smaller screens */
+            }
+
+            .navbar {
+                flex-direction: column; /* Stack vertically on small screens */
+                display: none; /* Hide navbar by default */
+                position: absolute;
+                top: 60px; /* Positioning below header */
+                left: 0;
+                right: 0;
+                background-color: var(--second-bg-color);
+                z-index: 10; /* Ensure navbar appears above other content */
+                padding: 10px 0; /* Add padding for the navbar */
+            }
+
+            .navbar.active {
+                display: flex; /* Show navbar when active */
+            }
+
+            #menu-icon {
+                display: block; /* Show menu icon on small screens */
+            }
+
+            .experience-container {
+                padding: 10px; /* Reduced padding */
+                flex-direction: column; /* Switch to single column layout */
+            }
+
+            h1, h2, h3 {
+                font-size: 1.8rem; /* Adjust heading sizes for mobile */
+            }
+
+            p {
+                font-size: 1.4rem; /* Adjust paragraph font size */
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                font-size: 1.4rem; /* Scale down further for very small devices */
+            }
+
+            h1, h2, h3 {
+                font-size: 1.6rem; /* Further scale down headings */
+            }
+
+            p {
+                font-size: 1.2rem; /* Further adjust paragraph font size */
+            }
+
+            .navbar a {
+                padding: 6px 12px; /* Reduce padding for navbar links */
+            }
+
+            .experience-container {
+                padding: 8px; /* Reduce padding for very small screens */
+            }
+        }
+    </style>
+
+    <script>
+        // Toggle navigation menu for mobile view
+        document.addEventListener("DOMContentLoaded", function () {
+            const menuIcon = document.getElementById("menu-icon");
+            const navbar = document.querySelector(".navbar");
+
+            menuIcon.addEventListener("click", function () {
+                navbar.classList.toggle("active");
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+    <h1>Microsoft Azure: Onboard Automator</h1>
+    <div class="atoma-img">
+        <img src="images/Atom.jpg" alt="">
+    </div>
+    </header>
+    
+
+    <p>
+        As I gear up for the AZ-104 exam, Azure Active Directory seems to come up quite a bit. So I decided to build a project in Azure to
+        help automate the onboarding process of new employees onto an enterprise. This includes getting them into Azure AD and assigning any Azure resources they might need.
+    </p>
+
+    <h2>Introduction</h2>
+    <p>In this project, the following services were used:</p>
+    <ul>
+        <li>Azure AD</li>
+        <li>Azure Logic Apps</li>
+        <li>Azure Email Service</li>
+        <li>Azure Resource Manager</li>
+    </ul>
+
+    <h3>Azure Active Directory</h3>
+    <p>
+        Azure Active Directory acts as the central directory for 
+        your organization's users and their access permissions. 
+        You configure it with user attributes, roles, and groups relevant to your organization. 
+        I already had one set up, so not much configuring was necessary here.
+    </p>
+
+    <h3>Azure Logic App Workflow</h3>
+    <p>
+        Azure Logic Apps is a cloud service offered by Microsoft Azure that allows you to create and run workflows for automating business processes
+         and integrating various services and applications.
+         Using Logic Apps and Entra ID, I have built a workflow that will automatically trigger whenever a new entry is added to Sharepoint, or a specific email or form is submitted. 
+         This way I could test and show that the automation is working. When the trigger event occurs, the Logic App workflow is initiated.
+         The first action was to create a user in Microsoft Entra ID from the HTTP request , added a new parameter for Job Title which I used to assigned the user to the right group
+    </p>
+
+    <div class="bume-img">
+        <img src="images/bume.jpg" alt="">
+    </div>
+
+    <h3>Roles, Groups, and Resource Provisioning</h3>
+    <p>
+        The first action was to create a user in Microsoft Entra ID from the HTTP request ,
+        added a new parameter for Job Title which I used to assigned the user to the right group.
+        Within the Logic App workflow, I incorporated the Azure AD connector to create new user accounts. The information required for account 
+        account creation, such as the employee's name and email address, is extracted from the trigger event, This ensures that each new employee gets an Azure AD account. 
+        With this I can also can assign the new user to relevant groups or roles. For instance, if the trigger event indicates that the new employee belongs to the Sales department, 
+        the Logic App will assign them to the “Sales Users” group or provide Sales-specific roles to grant the appropriate permissions.
+        After creating a new user in Microsoft Entra ID Tenant and assigning the roles and groups, my next step was to send an email to the new employee I created welcoming them to the company.
+        This step was fairly straightforward using outlook 365 “ Send an email trigger from the dynamic content
+    </p>
+    
+    <div class="can-img">
+        <img src="images/can.jpg" alt="">
+    </div>
+
+    <div class="bume-img"></div>
+        <img src="images/and.jpg" alt="">
+
+    <h3>Monitoring and Review</h3>
+    <p>
+        My last step will be to monitor and review the onboarding process 
+        through Logic Apps runs history and Azure AD logs to ensure smooth operations.
+        The Logic App includes an Email connector to send a welcome email,
+         this emails typically contains essential information like login credentials and other access instructions.
+    </p>
+
+    <div class="last"></div>
+        <img src="images/last.jpg" alt="">
+
+    <h3>Conclusion</h3>
+    <p>
+        
+Going through this project was a great learning experience. It really gave me a hands on perspective to all the things I have studying the past few weeks.
+Through this project, I've achieved several key learning outcomes. Firstly, I've gained a deep understanding of Azure Active Directory (Azure AD) setup, 
+enabling me to effectively manage user identities and access. Secondly, I've honed my skills in designing automation workflows using Azure Logic Apps, selecting triggers, and actions tailored to specific events. 
+Thirdly, I've become proficient in automating user account creation in Azure AD by leveraging Azure AD connectors within Logic Apps and extracting pertinent data from trigger events. 
+In addition, I have learned how to assign pre-defined roles and groups by job position or department, improving my ability to manage user access control better. 
+I have also learned how to automatically provision Azure resources, such as virtual machines and permissions, with the help of the Azure resource manager connector inside Logic Apps. 
+I have also become skilled at creating personalized welcome emails for new hires using Logic Apps, making the onboarding process smoother and more informative. 
+I now also have the ability to monitor and review the whole onboarding process, as I am able to track progress through logic apps run history as well as Azure AD logs. As a result, 
+I am able to address issues or enhancements quickly and effectively. This project not only improves process efficiency by eliminating manual tasks, 
+but also improves scalability and consistency in onboarding, as well as improving the security of the process. 
+I have also acquired valuable integration skills to connect various Azure services as well as external systems, 
+making it easier for me to adjust and optimize automation process to meet changing business requirements as well as new hire scenarios
+    </p>
+
+    <!-- Link back to the main page, opened in the same tab -->
+    <a href="index 6.html" class="back-link">Go Back to Home</a>
+
+</body>
+
+</html>
